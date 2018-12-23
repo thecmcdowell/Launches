@@ -30,7 +30,6 @@ class HomeScreen extends React.Component{
     }
 
     render(){
-      console.log('Test',  this.props.launches)
       let launches = this.props.launches
         return (
             <View style={styles.container}>
