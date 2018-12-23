@@ -1,5 +1,7 @@
 import React from 'react'
 import HomeScreen from './src/containers/home'
+import SearchScreen from './src/containers/Search'
+import FavoritesScreen from './src/containers/Favorites'
 import {
     createBottomTabNavigator,
     createStackNavigator,
@@ -21,7 +23,7 @@ const persistConfig = {
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const client = axios.create({
-    baseURL: 'https://launchlibrary.net/1.4',
+    baseURL: 'https://launchlibrary.net/1.4/',
     responseType: 'json'
 })
 let store = createStore(persistedReducer, applyMiddleware(axiosMiddleware(client)))
@@ -31,9 +33,17 @@ let persistor = persistStore(store)
 const HomeStack = createStackNavigator({
     Home: { screen: HomeScreen }
 })
+const SearchStack = createStackNavigator({
+    Search: {screen: SearchScreen}
+})
+const FavoritesStack = createStackNavigator({
+    Favorites: {screen: FavoritesScreen}
+})
 
 const TabNavigator = createBottomTabNavigator({
-    Home: HomeStack
+    Home: HomeStack,
+    Search: SearchStack,
+    Favorites: FavoritesStack
 }, {
     initialRouteName: 'Home'
 })

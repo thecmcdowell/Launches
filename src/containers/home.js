@@ -1,16 +1,21 @@
 import React from "react"
-import {View, Text, StyleSheet} from 'react-native'
-
-export default class HomeScreen extends React.Component{
+import { connect } from 'react-redux'
+import {View, Text, StyleSheet, FlatList} from 'react-native'
+import {getLaunchList} from '../actions/getLaunchesActions'
+class HomeScreen extends React.Component{
     static navigationOptions = {
         title: 'Launches'
       };
+
+    componentDidMount() {
+      this.props.getLaunchList()
+    }
+
     render(){
+      console.log('PROPS', this.props)
         return (
             <View style={styles.container}>
-            <Text style={styles.welcome}>Welcome to React Native!</Text>
-            <Text style={styles.instructions}>To get started, edit App.js</Text>
-            <Text style={styles.instructions}>instructions</Text>
+            <Text style={styles.welcome}>Home Screen</Text>
           </View>
         )
     }
@@ -27,10 +32,17 @@ const styles = StyleSheet.create({
       fontSize: 20,
       textAlign: 'center',
       margin: 10,
-    },
-    instructions: {
-      textAlign: 'center',
-      color: '#333333',
-      marginBottom: 5,
-    },
+    }
   });
+
+  const mapStateToProps = state => {
+    return {
+      launches: state
+    }
+  }
+
+  const mapDispatchToProps = {
+    getLaunchList
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
