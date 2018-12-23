@@ -2,6 +2,7 @@ import React from 'react'
 import HomeScreen from './src/containers/home'
 import SearchScreen from './src/containers/Search'
 import FavoritesScreen from './src/containers/Favorites'
+import LaunchDetail from './src/containers/LaunchDetail'
 import {
     createBottomTabNavigator,
     createStackNavigator,
@@ -31,7 +32,8 @@ let persistor = persistStore(store)
 
 // Nav stuff
 const HomeStack = createStackNavigator({
-    Home: { screen: HomeScreen }
+    Home: { screen: HomeScreen },
+    LaunchDetail: { screen: LaunchDetail}
 })
 const SearchStack = createStackNavigator({
     Search: {screen: SearchScreen}

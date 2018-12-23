@@ -1,8 +1,13 @@
 import React from "react"
 import { connect } from 'react-redux'
-import {View, Text, StyleSheet, FlatList} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, FlatList} from 'react-native'
+import {LaunchListItem} from '../components/index'
 import {getLaunchList} from '../actions/getLaunchesActions'
 class HomeScreen extends React.Component{
+  constructor(props) {
+    super(props)
+    navigation = this.props.navigation
+  }
     static navigationOptions = {
         title: 'Launches'
       };
@@ -11,11 +16,30 @@ class HomeScreen extends React.Component{
       this.props.getLaunchList()
     }
 
+    renderFlatList(item) {
+      return (
+        <TouchableOpacity onPress={() => navigation.navigate('LaunchDetail', {
+          id: item.item.id,
+          launchName: item.item.name
+        })} >
+        <LaunchListItem 
+          item = {item}
+        />
+        </TouchableOpacity>
+      )
+    }
+
     render(){
-      console.log('PROPS', this.props)
+      console.log('Test',  this.props.launches)
+      let launches = this.props.launches
         return (
             <View style={styles.container}>
-            <Text style={styles.welcome}>Home Screen</Text>
+            <FlatList
+              renderItem={this.renderFlatList}
+              data={launches}
+              keyExtractor={item => `${item.id}`}
+              style={styles.list}
+            />
           </View>
         )
     }
@@ -32,12 +56,15 @@ const styles = StyleSheet.create({
       fontSize: 20,
       textAlign: 'center',
       margin: 10,
+    },
+    list: {
+      maxWidth: "100%"
     }
   });
 
   const mapStateToProps = state => {
     return {
-      launches: state
+      launches: state.launchList.state.launches
     }
   }
 

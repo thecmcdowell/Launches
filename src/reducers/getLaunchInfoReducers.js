@@ -1,20 +1,18 @@
 import {
-    FETCH_LAUNCHES,
-    FETCH_LAUNCHES_SUCCESS,
-    FETCH_LAUNCHES_FAIL
+    GET_LAUNCH_INFO,
+    GET_LAUNCH_INFO_FAIL,
+    GET_LAUNCH_INFO_SUCCESS
 } from '../actions/types'
+import { FETCH_LAUNCHES_FAIL } from '../actions/types';
 
-export default getLaunchesReducer = (state = [], action) => {
+export default getLaunchInfoReducer = (state = {}, action) => {
     switch (action.type) {
-        case FETCH_LAUNCHES:
-            console.log('fetch', state)
+        case GET_LAUNCH_INFO:
             return {...state, loading: true }
-        case FETCH_LAUNCHES_FAIL:
-            console.log('fetch nay', action.payload)
-            return {...state, loading: false, error: 'ERROR' }
-        case FETCH_LAUNCHES_SUCCESS:
-            console.log('fetch yay', state)
+        case GET_LAUNCH_INFO_SUCCESS:
             return { state: action.payload.data, loading: false }
+        case FETCH_LAUNCHES_FAIL:
+            return {...state, loading: false, error: 'ERROR' }
         default:
             return state
     }

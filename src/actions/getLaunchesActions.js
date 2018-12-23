@@ -3,7 +3,11 @@ import * as actions from './types'
 export const getLaunchInfo = id => {
     return {
         type: actions.GET_LAUNCH_INFO,
-        id
+        payload: {
+            request: {
+                url: `launch/${id}`
+            }
+        }
     }
 }
 

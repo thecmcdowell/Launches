@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import favoritesReducer from './favoritesReducers'
-import getLaunchesReducer from './getLaunchInfoReducers'
+import getLaunchesReducer from './getLaunchListReducers'
+import getLaunchInfoReducer from './getLaunchInfoReducers'
 
 export default combineReducers({
     favorites: favoritesReducer,
-    launchList: getLaunchesReducer
+    launchList: getLaunchesReducer,
+    launchInfo: getLaunchInfoReducer
 })
