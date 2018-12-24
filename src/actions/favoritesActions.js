@@ -6,3 +6,10 @@ export const addFavorite = id => {
         id
     }
 }
+
+export const deleteFavorite = id => {
+    return {
+        type: actions.DELETE_FAVORITE,
+        id
+    }
+}

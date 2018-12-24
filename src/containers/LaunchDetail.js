@@ -6,10 +6,11 @@ import {
   Image,
   Button,
   Linking,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import { connect } from "react-redux";
-import { getLaunchInfo } from "../actions/getLaunchesActions";
+import { addFavorite } from '../actions/favoritesActions'
 
 class LaunchDetail extends React.PureComponent {
   constructor(props) {
@@ -44,7 +45,6 @@ class LaunchDetail extends React.PureComponent {
 
   infoLinks() {
     const mission = this.state.data[0].lsp;
-    console.log("Mission", this.state.data[0].lsp);
     if (mission.wikiURL != "") {
       return (
         <Button
@@ -53,6 +53,11 @@ class LaunchDetail extends React.PureComponent {
         />
       );
     }
+  }
+
+  addFavorite() {
+    const id = this.state.data[0].id
+      console.log('Faved', id)
   }
 
   videoLinks() {
@@ -69,10 +74,13 @@ class LaunchDetail extends React.PureComponent {
 
   render() {
     const { navigation } = this.props;
-    const id = navigation.getParam("id", "no-id");
     const launch = this.state.data[0];
     if (!launch) {
-      return <Text>No data</Text>;
+      return (
+          <View >
+      <ActivityIndicator />
+      </View>
+      )
     } else {
       return (
         <ScrollView>
@@ -80,6 +88,10 @@ class LaunchDetail extends React.PureComponent {
             <Image
               style={{ width: "100%", height: 350 }}
               source={{ uri: launch.rocket.imageURL }}
+            />
+            <Button
+                title= 'Favorite'
+                onPress={() => this.addFavorite()}
             />
           </View>
           <View style={styles.infoContainer}>
@@ -134,7 +146,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  getLaunchInfo
+    addFavorite
 };
 
 export default connect(

@@ -39,7 +39,8 @@ const SearchStack = createStackNavigator({
     Search: {screen: SearchScreen}
 })
 const FavoritesStack = createStackNavigator({
-    Favorites: {screen: FavoritesScreen}
+    Favorites: {screen: FavoritesScreen},
+    FavoriteDetail: { screen: LaunchDetail}
 })
 
 const TabNavigator = createBottomTabNavigator({

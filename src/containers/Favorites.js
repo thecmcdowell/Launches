@@ -1,15 +1,48 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import {LaunchListItem} from '../components/index'
 
-export default class FavoritesScreen extends React.Component {
+class FavoritesScreen extends React.Component {
+    constructor(props){
+        super(props)
+        navigation = this.props.navigation
+    }
     static navigationOptions = {
-        title: 'Favorites'
+        title: 'Favorites',
+        headerStyle: {
+            backgroundColor: '#a2e080',
+        },
+        headerTitleStyle: {
+            color: 'white'
+          }
     }
 
+    renderFlatList(item) {
+        return (
+          <TouchableOpacity onPress={() => navigation.navigate('FavoriteDetail', {
+            id: item.item.id,
+            name: item.item.name
+          })} >
+          <LaunchListItem 
+            item = {item}
+          />
+          </TouchableOpacity>
+        )
+      }
+
     render() {
+        console.log('Favorites', this.props.favorites)
+        const favorites = this.props.favorites
         return(
             <View style={styles.container}>
             <Text style={styles.welcome}>Favorites Screen</Text>
+            <FlatList
+                renderItem={this.renderFlatList}
+                data={favorites}
+                keyExtractor={item => `${item.id}`}
+                style={styles.list}
+            />
           </View>
         )
     }
@@ -26,5 +59,16 @@ const styles = StyleSheet.create({
       fontSize: 20,
       textAlign: 'center',
       margin: 10,
+    },
+    list:{
+        maxWidth: '100%'
     }
   });
+
+  const mapStateToProps = state => {
+      return {
+          favorites: state.favorites.launches
+      }
+  }
+
+  export default connect(mapStateToProps)(FavoritesScreen)
