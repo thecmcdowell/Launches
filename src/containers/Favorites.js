@@ -32,8 +32,8 @@ class FavoritesScreen extends React.Component {
       }
 
     render() {
-        console.log('Favorites', this.props.favorites)
         const favorites = this.props.favorites
+        console.log('favs', favorites)
         return(
             <View style={styles.container}>
             <Text style={styles.welcome}>Favorites Screen</Text>
@@ -67,8 +67,9 @@ const styles = StyleSheet.create({
 
   const mapStateToProps = state => {
       return {
-          favorites: state.favorites.launches
+          favorites: state.favorites
       }
   }
+  
 
   export default connect(mapStateToProps)(FavoritesScreen)

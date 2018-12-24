@@ -37,6 +37,7 @@ class HomeScreen extends React.Component{
 
     render(){
       let launches = this.props.launches
+      console.log('launch', launches)
         return (
             <View style={styles.container}>
             <FlatList

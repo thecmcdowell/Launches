@@ -10,7 +10,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { connect } from "react-redux";
-import { addFavorite } from '../actions/favoritesActions'
+import { addFavorite, deleteFavorite } from '../actions/favoritesActions'
 
 class LaunchDetail extends React.PureComponent {
   constructor(props) {
@@ -55,11 +55,6 @@ class LaunchDetail extends React.PureComponent {
     }
   }
 
-  addFavorite() {
-    const id = this.state.data[0].id
-      console.log('Faved', id)
-  }
-
   videoLinks() {
     const launch = this.state.data[0];
     if (launch.vidUrls != []) {
@@ -91,7 +86,11 @@ class LaunchDetail extends React.PureComponent {
             />
             <Button
                 title= 'Favorite'
-                onPress={() => this.addFavorite()}
+                onPress={() => this.props.addFavorite(launch)}
+            />
+            <Button
+              title='delete fav'
+              onPress={() => this.props.deleteFavorite(launch.id)}
             />
           </View>
           <View style={styles.infoContainer}>
@@ -139,17 +138,18 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => {
-  return {
-    launch: state.launchInfo
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     launch: state.launchInfo
+//   };
+// };
 
 const mapDispatchToProps = {
-    addFavorite
+    addFavorite,
+    deleteFavorite
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(LaunchDetail);

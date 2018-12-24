@@ -1,15 +1,16 @@
-import * as actions from './types'
+import { ADD_FAVORITE, DELETE_FAVORITE } from './types'
 
-export const addFavorite = id => {
+export const addFavorite = launch => {
+    console.log('Action')
     return {
-        type: actions.ADD_FAVORITE,
-        id
+        type: ADD_FAVORITE,
+        launch,
     }
 }
 
 export const deleteFavorite = id => {
     return {
-        type: actions.DELETE_FAVORITE,
+        type: DELETE_FAVORITE,
         id
     }
 }
