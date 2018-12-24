@@ -9,7 +9,13 @@ class HomeScreen extends React.Component{
     navigation = this.props.navigation
   }
     static navigationOptions = {
-        title: 'Launches'
+        title: 'Launches',
+        headerStyle: {
+          backgroundColor: '#a2e080',
+      },
+      headerTitleStyle: {
+          color: 'white'
+        }
       };
 
     componentDidMount() {
@@ -20,7 +26,7 @@ class HomeScreen extends React.Component{
       return (
         <TouchableOpacity onPress={() => navigation.navigate('LaunchDetail', {
           id: item.item.id,
-          launchName: item.item.name
+          name: item.item.name
         })} >
         <LaunchListItem 
           item = {item}

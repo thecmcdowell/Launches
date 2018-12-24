@@ -47,8 +47,17 @@ const TabNavigator = createBottomTabNavigator({
     Search: SearchStack,
     Favorites: FavoritesStack
 }, {
-    initialRouteName: 'Home'
-})
+    initialRouteName: 'Home',
+    tabBarOptions: {
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+        style: {
+            backgroundColor: '#a2e080'
+        }
+    
+}
+}
+)
 
 const AppContainer = createAppContainer(TabNavigator)
 
