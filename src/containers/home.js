@@ -26,7 +26,8 @@ class HomeScreen extends React.Component{
       return (
         <TouchableOpacity onPress={() => navigation.navigate('LaunchDetail', {
           id: item.item.id,
-          name: item.item.name
+          name: item.item.name,
+          favorite: false
         })} >
         <LaunchListItem 
           item = {item}

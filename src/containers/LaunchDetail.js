@@ -10,13 +10,14 @@ import {
   ActivityIndicator
 } from "react-native";
 import { connect } from "react-redux";
-import { addFavorite, deleteFavorite } from '../actions/favoritesActions'
+import { addFavorite, deleteFavorite } from "../actions/favoritesActions";
 
 class LaunchDetail extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: {}
+      data: {},
+      favorite: Boolean
     };
   }
 
@@ -33,12 +34,13 @@ class LaunchDetail extends React.PureComponent {
   componentWillMount() {
     const { navigation } = this.props;
     const id = navigation.getParam("id", "no-id");
-    const name = navigation.getParam("name", "no-name");
+    const favorite = navigation.getParam("favorite");
     return fetch(`https://launchlibrary.net/1.4/launch/${id}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
-          data: responseJson.launches
+          data: responseJson.launches,
+          favorite: favorite
         });
       });
   }
@@ -66,16 +68,39 @@ class LaunchDetail extends React.PureComponent {
       );
     }
   }
+  delete(id) {
+    this.props.deleteFavorite(id)
+    this.props.navigation.dismiss()
+  }
+
+  favorites(launch) {
+    if(this.state.favorite){
+      return (
+        <Button
+        title="delete fav"
+        onPress={() => this.delete(launch.id)}
+      />
+      )
+    } else {
+      return (
+        <Button
+        title="Favorite"
+        onPress={() => this.props.addFavorite(launch)}
+      />
+      )
+    }
+  }
 
   render() {
+    console.log('fav', this.props)
     const { navigation } = this.props;
     const launch = this.state.data[0];
     if (!launch) {
       return (
-          <View >
-      <ActivityIndicator />
-      </View>
-      )
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
     } else {
       return (
         <ScrollView>
@@ -84,14 +109,7 @@ class LaunchDetail extends React.PureComponent {
               style={{ width: "100%", height: 350 }}
               source={{ uri: launch.rocket.imageURL }}
             />
-            <Button
-                title= 'Favorite'
-                onPress={() => this.props.addFavorite(launch)}
-            />
-            <Button
-              title='delete fav'
-              onPress={() => this.props.deleteFavorite(launch.id)}
-            />
+            {this.favorites(launch)}
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.infoBox}>
@@ -106,7 +124,7 @@ class LaunchDetail extends React.PureComponent {
               </Text>
               <Text style={styles.headerFont}>Location:</Text>
               <Text>{launch.location.name}</Text>
-              <Text style={styles.headerFont}>Mission Details</Text>
+              <Text style={styles.headerFont}>Mission Details:</Text>
               <Text>{launch.missions[0].description}</Text>
             </View>
             {this.infoLinks()}
@@ -145,8 +163,8 @@ const styles = StyleSheet.create({
 // };
 
 const mapDispatchToProps = {
-    addFavorite,
-    deleteFavorite
+  addFavorite,
+  deleteFavorite
 };
 
 export default connect(

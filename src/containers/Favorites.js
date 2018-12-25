@@ -22,7 +22,8 @@ class FavoritesScreen extends React.Component {
         return (
           <TouchableOpacity onPress={() => navigation.navigate('FavoriteDetail', {
             id: item.item.id,
-            name: item.item.name
+            name: item.item.name,
+            favorite: true
           })} >
           <LaunchListItem 
             item = {item}
