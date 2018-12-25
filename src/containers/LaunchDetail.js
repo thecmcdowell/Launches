@@ -47,30 +47,39 @@ class LaunchDetail extends React.PureComponent {
 
   infoLinks() {
     const mission = this.state.data[0].lsp;
-    if (mission.wikiURL != "") {
+    if (mission.wikiURL) {
       return (
         <Button
           title="More Info"
           onPress={() => Linking.openURL(mission.wikiURL)}
         />
       );
+    } else {
+      null
     }
   }
 
   videoLinks() {
-    const launch = this.state.data[0];
-    if (launch.vidUrls != []) {
+    const video = this.state.data[0].vidURLs;
+    if (video.length) {
       return (
         <Button
           title="Watch Video"
           onPress={() => Linking.openURL(launch.vidURLs[0])}
         />
       );
+    } else {
+      null
     }
   }
   delete(id) {
     this.props.deleteFavorite(id)
     this.props.navigation.dismiss()
+  }
+
+  favorite(launch) {
+    this.props.addFavorite(launch)
+    this.setState(favorite = true)
   }
 
   favorites(launch) {
@@ -91,9 +100,18 @@ class LaunchDetail extends React.PureComponent {
     }
   }
 
+  missionInfo () {
+    const mission = this.state.data[0].missions
+    if(mission.length ) {
+      return (
+        <Text> {mission[0].description} </Text>
+      )
+    } else {
+      return <Text>No further info at this time</Text>
+    }
+  }
+
   render() {
-    console.log('fav', this.props)
-    const { navigation } = this.props;
     const launch = this.state.data[0];
     if (!launch) {
       return (
@@ -125,7 +143,7 @@ class LaunchDetail extends React.PureComponent {
               <Text style={styles.headerFont}>Location:</Text>
               <Text>{launch.location.name}</Text>
               <Text style={styles.headerFont}>Mission Details:</Text>
-              <Text>{launch.missions[0].description}</Text>
+              {this.missionInfo()}
             </View>
             {this.infoLinks()}
             {this.videoLinks()}
@@ -155,12 +173,6 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-// const mapStateToProps = state => {
-//   return {
-//     launch: state.launchInfo
-//   };
-// };
 
 const mapDispatchToProps = {
   addFavorite,
