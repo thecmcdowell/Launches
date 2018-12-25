@@ -3,6 +3,7 @@ import HomeScreen from './src/containers/home'
 import SearchScreen from './src/containers/Search'
 import FavoritesScreen from './src/containers/Favorites'
 import LaunchDetail from './src/containers/LaunchDetail'
+import SettingsScreen from './src/containers/Settings'
 import {
     createBottomTabNavigator,
     createStackNavigator,
@@ -46,7 +47,8 @@ const FavoritesStack = createStackNavigator({
 const TabNavigator = createBottomTabNavigator({
     Home: HomeStack,
     Search: SearchStack,
-    Favorites: FavoritesStack
+    Favorites: FavoritesStack,
+    Settings: SettingsScreen
 }, {
     initialRouteName: 'Home',
     tabBarOptions: {

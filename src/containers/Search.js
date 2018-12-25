@@ -1,3 +1,4 @@
+// Use date picker to search between to dates
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
