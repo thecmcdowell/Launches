@@ -34,10 +34,8 @@ class FavoritesScreen extends React.Component {
 
     render() {
         const favorites = this.props.favorites
-        console.log('favs', favorites)
         return(
             <View style={styles.container}>
-            <Text style={styles.welcome}>Favorites Screen</Text>
             <FlatList
                 renderItem={this.renderFlatList}
                 data={favorites}

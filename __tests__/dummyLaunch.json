@@ -1,4 +1,4 @@
-export default data = {
+{
     "launches": [{
             "id": 1431,
             "name": "Soyuz 2.1a/Fregat | Kanopus-V №5 & Kanopus-V №6",
