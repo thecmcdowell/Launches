@@ -74,7 +74,7 @@ class LaunchDetail extends React.PureComponent {
   }
   delete(id) {
     this.props.deleteFavorite(id)
-    this.props.navigation.dismiss()
+    this.props.navigation.pop()
   }
 
   favorite(launch) {
