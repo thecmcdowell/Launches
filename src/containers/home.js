@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
-import {View, TouchableOpacity, StyleSheet, FlatList} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, Text} from 'react-native'
 import {LaunchListItem} from '../components/index'
 import {getLaunchList} from '../actions/getLaunchesActions'
 class HomeScreen extends React.Component{
@@ -39,6 +39,14 @@ class HomeScreen extends React.Component{
     render(){
       let launches = this.props.launches
       console.log('launch', launches)
+      if(!launches){
+        return (
+          <View style={styles.container}>
+            <ActivityIndicator />
+        </View>
+      )
+
+      } else {
         return (
             <View style={styles.container}>
             <FlatList
@@ -48,7 +56,7 @@ class HomeScreen extends React.Component{
               style={styles.list}
             />
           </View>
-        )
+        )}
     }
 }
 
