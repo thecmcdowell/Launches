@@ -18,7 +18,7 @@ class HomeScreen extends React.Component{
         }
       };
 
-    componentDidMount() {
+    componentWillMount() {
       this.props.getLaunchList()
     }
 
@@ -37,8 +37,7 @@ class HomeScreen extends React.Component{
     }
 
     render(){
-      let launches = this.props.launches
-      console.log('launch', launches)
+      let launches = this.props.launches.state.launches
       if(!launches){
         return (
           <View style={styles.container}>
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
 
   const mapStateToProps = state => {
     return {
-      launches: state.launchList.state.launches
+      launches: state.launchList
     }
   }
 
