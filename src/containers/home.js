@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
-import {View, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, Text} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator} from 'react-native'
 import {LaunchListItem} from '../components/index'
 import {getLaunchList} from '../actions/getLaunchesActions'
 class HomeScreen extends React.Component{
@@ -26,8 +26,7 @@ class HomeScreen extends React.Component{
       return (
         <TouchableOpacity onPress={() => navigation.navigate('LaunchDetail', {
           id: item.item.id,
-          name: item.item.name,
-          favorite: false
+          name: item.item.name
         })} >
         <LaunchListItem 
           item = {item}

@@ -4,6 +4,7 @@ import SearchScreen from './src/containers/Search'
 import FavoritesScreen from './src/containers/Favorites'
 import LaunchDetail from './src/containers/LaunchDetail'
 import SettingsScreen from './src/containers/Settings'
+import SearchResults from './src/containers/SearchResults'
 import {
     createBottomTabNavigator,
     createStackNavigator,
@@ -38,7 +39,9 @@ const HomeStack = createStackNavigator({
     LaunchDetail: { screen: LaunchDetail}
 })
 const SearchStack = createStackNavigator({
-    Search: {screen: SearchScreen}
+    Search: {screen: SearchScreen},
+    Results: {screen: SearchResults},
+    ResultDetail: { screen: LaunchDetail}
 })
 const FavoritesStack = createStackNavigator({
     Favorites: {screen: FavoritesScreen},

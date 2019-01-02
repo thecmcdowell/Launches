@@ -15,7 +15,13 @@ class SearchScreen extends React.Component {
     };
   }
   static navigationOptions = {
-    title: "Search"
+    title: "Search",
+    headerStyle: {
+      backgroundColor: "#a2e080"
+    },
+    headerTitleStyle: {
+      color: "white"
+    }
   };
 
   toggleDatePicker = () =>
@@ -34,70 +40,33 @@ class SearchScreen extends React.Component {
       return [year, month, day].join("-");
     };
     this.setState({ date: formatDate(blob), showSearch: false });
+    // clean this up
+    this.props.searchLaunches(this.state.date);
     this.toggleDatePicker();
   };
 
-  newSearch() {
-    this.setState({
-      isDatePickerVisible: true
-    })
-  }
-
-
-
-  // because the service returns data differently with search than it does with regular loading, ListItem cannot be used in it's current state
-  renderListItem(item) {
-    const launch = item.item;
-    return (
-      <View style={styles.row}>
-        <View style={styles.rowDetail}>
-          <Text>{launch.name}</Text>
-          <Text>{launch.windowstart}</Text>
-        </View>
-      </View>
-    );ß
-  }
+  search = () => {
+    navigation.navigate("Results", {
+      results: this.props.results.state.launches
+    });
+  };
 
   render() {
-    const results = this.props.results;
-    if (this.state.showSearch) {
-      return (
-        <View style={styles.container}>
-          <Button onPress={() => this.toggleDatePicker()} title={`Date: ${this.state.date}`} />
-          <Button
-            title='Search'
-            onPress={() => this.props.searchLaunches(this.state.date)}
-          />
-          <DateTimePicker
-            isVisible={this.state.isDatePickerVisible}
-            onConfirm={this.handleDatePicked}
-            onCancel={this.toggleDatePicker}
-            mode="date"
-          />
-        </View>
-      );
-    } else {
-      return (
-        <View>
+    return (
+      <View style={styles.container}>
         <Button
-          title='New Search'
-          onPress={() => this.setState({showSearch: true})}
+          onPress={() => this.toggleDatePicker()}
+          title={`Date: ${this.state.date}`}
         />
-        <FlatList
-          renderItem={this.renderListItem}
-          data={results.state.launches}
-          keyExtractor={item => `${item.id}`}
-          style={styles.list}
-        />
+        <Button title="Search" onPress={() => this.search(this.state.date)} />
         <DateTimePicker
-        isVisible={this.state.isDatePickerVisible}
-        onConfirm={this.handleDatePicked}
-        onCancel={this.toggleDatePicker}
-        mode="date"
-      />
+          isVisible={this.state.isDatePickerVisible}
+          onConfirm={this.handleDatePicked}
+          onCancel={this.toggleDatePicker}
+          mode="date"
+        />
       </View>
-      );
-    }
+    );
   }
 }
 
