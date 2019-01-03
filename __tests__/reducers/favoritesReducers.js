@@ -10,4 +10,11 @@ describe('favorites reducer tests', () => {
         }
         expect(favoritesReducer([], input)).toMatchSnapshot()
     })
+    it('deletes a favorite launch', () => {
+        const input = {
+            type: DELETE_FAVORITE,
+            id: 1431
+        }
+        expect(favoritesReducer([], input)).toEqual([])
+    })
 })
