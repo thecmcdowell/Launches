@@ -3,7 +3,8 @@ A simple app that (by default) displays the next 10 schduled launches from launc
 
 Built in React Native and used Redux for state managment.
 
-
+![alt text](./ScreenShot_1.png)
+![alt text](./ScreenShot_2.png)
 ### Run This App
 #### Ensure you have all dependencies installed:
 ```
