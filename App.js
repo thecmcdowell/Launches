@@ -23,7 +23,7 @@ import rootReducer from './src/reducers/index'
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['searchResults']
+    blacklist: ['searchResult']
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const client = axios.create({
